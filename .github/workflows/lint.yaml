@@ -1,0 +1,61 @@
+name: "Lint"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master, main]
+    paths-ignore: &paths
+      - "docs/**"
+  pull_request:
+    branches: [master, main]
+    paths-ignore: *paths
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ !contains(github.event.head_commit.message, '#nolint') }}
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: "Install"
+        id: install
+        run: npm ci
+
+      - name: "Debug dist"
+        continue-on-error: true
+        run: ls -lahR dist
+
+      - name: "eslint"
+        if: ${{ !cancelled() }}
+        run: npm run lint
+
+      - name: "prettier"
+        if: ${{ !cancelled() }}
+        run: npm run prettier:check
+
+      - name: "yamllint"
+        if: ${{ !cancelled() }}
+        env:
+          CONFIG: .github/yamllint.yaml
+        run: |
+          echo "::group::List Files"
+          yamllint -c "${{ env.CONFIG }}" --list-files .
+          echo "::endgroup::"
+          yamllint -c "${{ env.CONFIG }}" .
+
+      - name: "actionlint"
+        if: ${{ !cancelled() }}
+        uses: cssnr/actionlint-action@v1

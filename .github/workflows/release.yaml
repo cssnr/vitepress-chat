@@ -1,0 +1,100 @@
+name: "Release"
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: "Release"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: write
+      id-token: write
+      packages: write
+
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/vitepress-chat
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
+
+      - name: "Debug event.json"
+        continue-on-error: true
+        run: cat "${GITHUB_EVENT_PATH}"
+      - name: "Debug CTX github"
+        continue-on-error: true
+        env:
+          GITHUB_CTX: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CTX"
+      - name: "Debug Environment"
+        continue-on-error: true
+        run: env
+
+      - name: "Update Package Version"
+        uses: cssnr/update-json-value-action@v2
+        with:
+          file: "package.json"
+
+      - name: "Debug Package File"
+        continue-on-error: true
+        run: cat package.json
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+
+      - name: "Install and Pack"
+        run: |
+          npm ci
+          npm pack --ignore-scripts
+
+      - name: "Debug"
+        run: |
+          echo "::group::ls ."
+          ls -lAh .
+          echo "::endgroup::"
+          echo "::group::ls dist"
+          ls -lAh dist
+          echo "::endgroup::"
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v7
+        with:
+          name: package
+          path: "*.tgz"
+
+      - name: "Upload Release"
+        uses: cssnr/upload-release-action@v1
+        with:
+          globs: "*.tgz"
+
+      - name: "Publish NPM"
+        if: ${{ !github.event.release.prerelease }}
+        env:
+          # for initial publishing, remove after adding trusted publishing
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
+
+      - name: "Update Release Notes Action"
+        continue-on-error: true
+        uses: smashedr/update-release-notes-action@master
+        with:
+          location: tail
+
+      - name: "Package Changelog Action"
+        continue-on-error: true
+        uses: cssnr/package-changelog-action@v2
+
+      - name: "Send Failure Notification"
+        if: ${{ failure() }}
+        uses: sarisia/actions-status-discord@eb045afee445dc055c18d3d90bd0f244fd062708 # v1.16.0
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          description: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

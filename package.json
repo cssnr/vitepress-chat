@@ -1,0 +1,89 @@
+{
+  "name": "vitepress-chat",
+  "version": "0.0.1",
+  "description": "Easily add AI chat with knowledge on your site and live streaming results from a secure proxy server.",
+  "keywords": [
+    "vitepress-plugin",
+    "vitepress",
+    "plugin",
+    "chat"
+  ],
+  "homepage": "https://github.com/cssnr/vitepress-chat",
+  "bugs": {
+    "url": "https://github.com/cssnr/vitepress-chat/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cssnr/vitepress-chat.git"
+  },
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/cssnr"
+  },
+  "license": "GPL-3.0-only",
+  "author": {
+    "name": "Shane",
+    "url": "https://cssnr.github.io/"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/chat.es.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./instructions": {
+      "import": "./dist/instructions.es.js",
+      "types": "./dist/instructions.d.ts"
+    },
+    "./style.css": "./dist/vitepress-chat.css"
+  },
+  "main": "dist/chat.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "docs": "npm run docs:dev",
+    "docs:build": "vitepress build docs",
+    "docs:clean": "rm -rf docs/.vitepress/cache docs/.vitepress/dist",
+    "docs:deploy": "npm run docs:build",
+    "docs:dev": "vitepress dev docs",
+    "docs:preview": "vitepress preview docs",
+    "lint": "npx eslint src",
+    "prepare": "npm run build",
+    "prettier": "npm run prettier:write",
+    "prettier:check": "npx prettier --check .",
+    "prettier:write": "npx prettier --write ."
+  },
+  "devDependencies": {
+    "@ai-sdk/vue": "^3.0.197",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.9.2",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "ai": "^6.0.197",
+    "eslint": "^10.4.1",
+    "eslint-plugin-vue": "^10.9.2",
+    "globals": "^17.6.0",
+    "highlight.js": "^11.11.1",
+    "lucide-vue-next": "^1.0.0",
+    "marked": "^18.0.5",
+    "marked-highlight": "^2.2.4",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1",
+    "vite": "^8.0.16",
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.35",
+    "vue-tsc": "^3.3.3"
+  },
+  "peerDependencies": {
+    "@ai-sdk/vue": ">=3.0.0",
+    "ai": ">=6.0.0",
+    "highlight.js": ">=11.0.0",
+    "marked": ">=18.0.0",
+    "marked-highlight": ">=2.0.0",
+    "vitepress": "*",
+    "vue": ">=3.0.0"
+  }
+}
