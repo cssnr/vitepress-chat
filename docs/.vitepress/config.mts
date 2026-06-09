@@ -173,7 +173,7 @@ export default defineConfig({
     // },
 
     externalLinkIcon: true,
-    outline: 'deep',
+    outline: [2, 3],
   },
   // markdown: {
   //   toc: { level: [2, 3] },
