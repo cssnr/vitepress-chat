@@ -210,7 +210,7 @@ function handleSubmit(e: Event) {
       <div class="message-bubble" @click="onBubbleClick">
         <template v-for="(part, i) in message.parts" :key="i">
           <span v-if="part.type === 'text'" v-html="renderMarkdown(part.text)" />
-          <details v-if="part.type === 'reasoning'" class="reasoning-details">
+          <details v-if="part.type === 'reasoning' && props.showReasoning" class="reasoning-details">
             <summary class="reasoning-summary">View Reasoning…</summary>
             <span class="reasoning-text">{{ part.text }}</span>
           </details>

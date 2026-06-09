@@ -11,6 +11,7 @@ export interface ChatOptions {
   headerUrl?: string | null
   initialMessage?: string | null
   filePath?: string
+  showReasoning?: boolean
 }
 
 export default function chat(layout: any, options: ChatOptions) {
