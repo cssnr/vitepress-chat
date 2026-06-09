@@ -109,6 +109,24 @@ const chat = new Chat({
 
 const chatBusy = computed(() => chat.status !== 'ready' && chat.status !== 'error')
 
+const showTyping = computed(() => {
+  return chat.status === 'submitted'
+  // if (chat.status === 'submitted') return true
+  // if (chat.status === 'streaming') {
+  //   const lastMsg = chat.messages.at(-1)
+  //   if (!lastMsg || lastMsg.role !== 'assistant') return true
+  //   return !lastMsg.parts?.some((p) => p.type === 'text')
+  // }
+  // return false
+})
+
+const streamingMessageId = computed(() => {
+  if (chat.status === 'streaming') {
+    return chat.messages.at(-1)?.role === 'assistant' ? chat.messages.at(-1)!.id : null
+  }
+  return null
+})
+
 let autoScroll = true
 let observer: MutationObserver | null = null
 
@@ -188,17 +206,20 @@ function handleSubmit(e: Event) {
       class="message"
       :class="message.role === 'user' ? 'message--user' : 'message--ai'"
     >
-      <span class="message-label">
-        {{ message.role === 'user' ? 'You' : 'AI' }}
-      </span>
+      <span class="message-label">{{ message.role === 'user' ? 'You' : 'AI' }}</span>
       <div class="message-bubble" @click="onBubbleClick">
-        <span v-for="(part, i) in message.parts" :key="i">
+        <template v-for="(part, i) in message.parts" :key="i">
           <span v-if="part.type === 'text'" v-html="renderMarkdown(part.text)" />
-        </span>
+          <details v-if="part.type === 'reasoning'" class="reasoning-details">
+            <summary class="reasoning-summary">View Reasoning…</summary>
+            <span class="reasoning-text">{{ part.text }}</span>
+          </details>
+        </template>
+        <span v-if="streamingMessageId === message.id" class="spinner spinner--inline" />
       </div>
     </div>
 
-    <div v-if="chat.status === 'submitted'" class="message message--ai">
+    <div v-if="showTyping" class="message message--ai">
       <div class="message-bubble--typing"><span class="dot" /><span class="dot" /><span class="dot" /></div>
     </div>
 
@@ -316,6 +337,46 @@ function handleSubmit(e: Event) {
 .message-bubble :deep(a) {
   color: var(--vp-c-brand-1);
   text-decoration: underline;
+}
+
+.reasoning-details {
+  margin: 4px 0;
+  font-size: 0.82rem;
+}
+
+.reasoning-summary {
+  cursor: pointer;
+  color: var(--vp-c-text-2);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.reasoning-text {
+  display: block;
+  color: var(--vp-c-text-2);
+  border-left: 2px solid var(--vp-c-divider);
+  padding-left: 10px;
+  margin-top: 4px;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.spinner--inline {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--vp-c-divider);
+  border-top-color: var(--vp-c-brand-1);
+  border-radius: 50%;
+  margin-left: 6px;
+  vertical-align: middle;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .message-bubble--typing {
