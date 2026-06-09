@@ -57,7 +57,7 @@ Built with the [AI SDK](https://ai-sdk.dev/).
 
 ## Install
 
-Using your favorite package manager...
+From [npmjs.com](https://www.npmjs.com/package/vitepress-chat) using your favorite package manager...
 
 ```shell
 npm i -D vitepress-chat
