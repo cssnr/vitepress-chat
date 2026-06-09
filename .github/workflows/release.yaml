@@ -55,7 +55,7 @@ jobs:
           npm ci
           npm pack --ignore-scripts
 
-      - name: "Debug"
+      - name: "Debug Package"
         run: |
           echo "::group::ls ."
           ls -lAh .
@@ -77,10 +77,10 @@ jobs:
 
       - name: "Publish NPM"
         if: ${{ !github.event.release.prerelease }}
-        env:
-          # for initial publishing, remove after adding trusted publishing
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --provenance --access public
+        #env:
+        #  # for initial publishing, remove after adding trusted publishing
+        #  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --ignore-scripts --provenance --access public
 
       - name: "Update Release Notes Action"
         continue-on-error: true

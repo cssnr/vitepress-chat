@@ -25,6 +25,15 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v6
 
+      - name: "Debug event.json"
+        continue-on-error: true
+        run: cat "${GITHUB_EVENT_PATH}"
+      - name: "Debug CTX github"
+        continue-on-error: true
+        env:
+          GITHUB_CTX: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CTX"
+
       - name: "Setup Node"
         uses: actions/setup-node@v6
         with:

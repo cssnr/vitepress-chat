@@ -44,6 +44,7 @@ To get started [Setup](#setup) and [Configure](#configure) the server.
 - Automatic Input Token Caching
 - Automatic Retry on API Failures
 - Deploy with Docker or Node
+- Supports Multiple Clients Simultaneously
 - Plus all the [Client Features](client.md#features)
 
 Built with the [AI SDK](https://ai-sdk.dev/).
@@ -86,19 +87,20 @@ For a Portainer Deploy workflow see the [.github/workflows/deploy.yaml](https://
 
 ### Configure
 
-If the `MODEL` is not provided `big-pickle` will be used which works without an API key.
+💡 The default `big-pickle` model works out-of-the box with NO API Key.
 
 Environment Variables.
 
-| Variable              | Default                      | Description                         |
-| :-------------------- | :--------------------------- | :---------------------------------- |
-| `MODEL`               | -                            | Model to Use                        |
-| `MAX_TOKENS`          | -                            | Max Output Tokens                   |
-| `INSTRUCTIONS`        | -                            | System Instructions                 |
-| `AI_SDK_LOG_WARNINGS` | -                            | Disable SDK Warnings                |
-| `CORS_ORIGINS`        | -                            | Allowed CORS Origins (supports \*)  |
-| `BASE_URL`            | `https://opencode.ai/zen/v1` | OpenAI Compatible Provider Base URL |
-| `PORT`                | `3000`                       | Server Port                         |
+| Variable                              | Default                      | Description                         |
+| :------------------------------------ | :--------------------------- | :---------------------------------- |
+| `MODEL`                               | `big-pickle`                 | Model to Use                        |
+| `MAX_TOKENS`                          | -                            | Max Output Tokens                   |
+| [PROVIDER_OPTIONS](#provider-options) | -                            | Provider Options JSON String        |
+| `INSTRUCTIONS`                        | -                            | Fallback System Instructions        |
+| `AI_SDK_LOG_WARNINGS`                 | -                            | Disable SDK Warnings                |
+| `CORS_ORIGINS`                        | -                            | Allowed CORS Origins (supports \*)  |
+| `BASE_URL`                            | `https://opencode.ai/zen/v1` | OpenAI Compatible Provider Base URL |
+| `PORT`                                | `3000`                       | Server Port                         |
 
 You must also set the API key for the `MODEL` you select.
 
@@ -110,6 +112,17 @@ You must also set the API key for the `MODEL` you select.
 | `PROVIDER_API_KEY`             | OpenAI Compatible Provider |
 
 The `PROVIDER_API_KEY` is optional for free-tier models like `big-pickle`.
+
+#### PROVIDER_OPTIONS
+
+Provider Specific Options: <https://vercel.com/docs/ai-gateway/models-and-providers/provider-options>
+
+```text
+{"openai":{"serviceTier":"flex","reasoningEffort":"low"}}
+```
+
+You are responsible for providing valid options for the chosen model.
+It is only checked to be valid JSON at startup and will fail at runtime if invalid.
 
 ## Client
 
