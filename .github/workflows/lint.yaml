@@ -43,7 +43,7 @@ jobs:
         id: install
         run: npm ci
 
-      - name: "Debug"
+      - name: "Debug dist"
         continue-on-error: true
         run: ls -lahR dist
 
