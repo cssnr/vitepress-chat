@@ -10,6 +10,8 @@ prev:
 
 [![NPM Version](https://img.shields.io/npm/v/vitepress-chat?logo=npm)](https://www.npmjs.com/package/vitepress-chat)
 [![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/vitepress-chat?logo=github)](https://github.com/cssnr/vitepress-chat/releases/latest)
+[![NPM Downloads](https://img.shields.io/npm/dm/vitepress-chat?logo=npm)](https://npm-stat.com/charts.html?package=vitepress-chat)
+[![Bundlephobia Size](https://img.shields.io/bundlephobia/min/vitepress-chat?logo=bookstack&logoColor=white)](https://bundlephobia.com/package/vitepress-chat)
 [![Deployment NPM](https://img.shields.io/github/deployments/cssnr/vitepress-chat/npm?logo=npm&logoColor=white&label=npm)](https://github.com/cssnr/vitepress-chat/deployments/npm)
 [![Deployment Docs](https://img.shields.io/github/deployments/cssnr/vitepress-chat/docs?logo=vitepress&logoColor=white&label=docs)](https://github.com/cssnr/vitepress-chat/deployments/docs)
 [![Workflow Release](https://img.shields.io/github/actions/workflow/status/cssnr/vitepress-chat/release.yaml?logo=norton&logoColor=white&label=release)](https://github.com/cssnr/vitepress-chat/actions/workflows/release.yaml)
@@ -55,7 +57,7 @@ Built with the [AI SDK](https://ai-sdk.dev/).
 
 ## Install
 
-Using your favorite package manager...
+From [npmjs.com](https://www.npmjs.com/package/vitepress-chat) using your favorite package manager...
 
 ```shell
 npm i -D vitepress-chat
