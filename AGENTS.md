@@ -16,6 +16,8 @@ VitePress Chat Plugin that adds an AI Chat Button and Chat Box.
 
 ## Commands
 
+ALWAYS use the `npm run *` command
+
 | Command              | What it does                                                |
 | -------------------- | ----------------------------------------------------------- |
 | `npm run build`      | `vite build && vue-tsc --declaration --emitDeclarationOnly` |

@@ -117,6 +117,7 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: settings.source_repo },
       { icon: 'serverless', link: 'https://github.com/cssnr/chat-server' },
+      { icon: 'npm', link: 'https://www.npmjs.com/package/vitepress-chat' },
       { icon: 'discord', link: 'https://discord.gg/wXy6m2X8wY' },
       { icon: 'kofi', link: 'https://ko-fi.com/cssnr' },
       {

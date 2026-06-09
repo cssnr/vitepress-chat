@@ -8,7 +8,7 @@
     "plugin",
     "chat"
   ],
-  "homepage": "https://github.com/cssnr/vitepress-chat",
+  "homepage": "https://cssnr.github.io/vitepress-chat/",
   "bugs": {
     "url": "https://github.com/cssnr/vitepress-chat/issues"
   },
@@ -20,7 +20,7 @@
     "type": "ko-fi",
     "url": "https://ko-fi.com/cssnr"
   },
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "author": {
     "name": "Shane",
     "url": "https://cssnr.github.io/"
