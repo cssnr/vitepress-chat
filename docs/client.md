@@ -47,10 +47,14 @@ Works with Claude, Gemini, OpenAI, or any [OpenAI Compatible Provider](https://a
 
 ### Features
 
+- Markdown Formatting with Syntax Highlighting
+- Live Streams the Results in Real Time
+- Works with Free Render Startup Delay
 - Set Custom Button And Header Text and Link
 - Includes Instructions Generation Plugin
 - Set Custom File Name and Exclude Globs
 - Works with Existing LLM Generation Plugins
+- Small Footprint (only adds ~6KB to your theme)
 - Plus all the [Server Features](server.md#features)
 
 Built with the [AI SDK](https://ai-sdk.dev/).

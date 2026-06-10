@@ -51,6 +51,8 @@ Built with the [AI SDK](https://ai-sdk.dev/).
 
 ## Setup
 
+💡 The server works out-of-the box with NO environment variables.
+
 [![Deploy to Render](https://img.shields.io/badge/Deploy_to_Render-4351E8?style=for-the-badge&logo=render)](https://render.com/deploy?repo=https://github.com/cssnr/chat-server)
 
 With Docker.
@@ -87,19 +89,19 @@ For a Portainer Deploy workflow see the [.github/workflows/deploy.yaml](https://
 
 ### Configure
 
-💡 The default `big-pickle` model works out-of-the box with NO API Key.
+💡 All variables are optional. The default `big-pickle` model works with NO API Key.
 
 Environment Variables.
 
 | Variable                              | Default                      | Description                         |
 | :------------------------------------ | :--------------------------- | :---------------------------------- |
 | `MODEL`                               | `big-pickle`                 | Model to Use                        |
-| `MAX_TOKENS`                          | -                            | Max Output Tokens                   |
+| `BASE_URL`                            | `https://opencode.ai/zen/v1` | OpenAI Compatible Provider Base URL |
 | [PROVIDER_OPTIONS](#provider-options) | -                            | Provider Options JSON String        |
+| `MAX_TOKENS`                          | -                            | Max Output Tokens                   |
 | `INSTRUCTIONS`                        | -                            | Fallback System Instructions        |
 | `AI_SDK_LOG_WARNINGS`                 | -                            | Disable SDK Warnings                |
 | `CORS_ORIGINS`                        | -                            | Allowed CORS Origins (supports \*)  |
-| `BASE_URL`                            | `https://opencode.ai/zen/v1` | OpenAI Compatible Provider Base URL |
 | `PORT`                                | `3000`                       | Server Port                         |
 
 You must also set the API key for the `MODEL` you select.
@@ -115,14 +117,23 @@ The `PROVIDER_API_KEY` is optional for free-tier models like `big-pickle`.
 
 #### PROVIDER_OPTIONS
 
-Provider Specific Options: <https://vercel.com/docs/ai-gateway/models-and-providers/provider-options>
+Provider Options: <https://vercel.com/docs/ai-gateway/models-and-providers/provider-options>
+
+For example, to disable "Reasoning" on `big-pickle` model.
+
+```json
+{ "zen": { "thinking": { "type": "disabled" } } }
+```
+
+You may need to wrap the variable in single quotes.
 
 ```text
-{"openai":{"serviceTier":"flex","reasoningEffort":"low"}}
+PROVIDER_OPTIONS='{"openai":{"serviceTier":"flex","reasoningEffort":"low"}}'
 ```
 
 You are responsible for providing valid options for the chosen model.
-It is only checked to be valid JSON at startup and will fail at runtime if invalid.
+The SDK supports providing provider options for multiple provider simultaneously.
+The value is only checked for valid JSON at startup and will fail at runtime if it contains invalid options.
 
 ## Client
 
@@ -142,6 +153,12 @@ const chat = new Chat({
 
 This works with no configuration using the `big-pickle` model.  
 You can set your environment variables in the `settings.env` file.  
+If using `big-pickle` for testing it is much faster to disable reasoning.
+
+```text
+PROVIDER_OPTIONS='{"zen":{"thinking":{"type":"disabled"}}}'
+```
+
 In all cases you can set the `PORT` environment variable.
 
 With Node run.
@@ -152,7 +169,7 @@ npm run dev
 
 Point your client to: http://localhost:3000/
 
-With Docker compose (you may need to `touch settings.env`).
+With Docker compose _(you may need to `touch settings.env`)_.
 
 ```shell
 docker compose -f docker-compose-dev.yaml up --watch --build --remove-orphans

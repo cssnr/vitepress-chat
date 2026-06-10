@@ -40,10 +40,9 @@ jobs:
           node-version: 24
 
       - name: "Install"
-        id: install
         run: npm ci
 
-      - name: "Debug dist"
+      - name: "Debug"
         continue-on-error: true
         run: ls -lahR dist
 
