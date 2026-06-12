@@ -51,9 +51,11 @@ To get started [Setup](#setup) and [Configure](#configure) the server.
 
 Built with the [AI SDK](https://ai-sdk.dev/).
 
+💡 If you need help getting started, [support](support.md) is available.
+
 ## Setup
 
-💡 The server works out-of-the box with NO environment variables.
+✅ The server works out-of-the box with NO environment variables.
 
 [![Deploy to Render](https://img.shields.io/badge/Deploy_to_Render-4351E8?style=for-the-badge&logo=render)](https://render.com/deploy?repo=https://github.com/cssnr/chat-server)
 

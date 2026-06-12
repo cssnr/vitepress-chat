@@ -2,6 +2,7 @@
 prev:
   text: 'Get Help'
   link: '/support'
+outline: [2, 4]
 ---
 
 # VitePress Plugin
@@ -59,6 +60,19 @@ Works with Claude, Gemini, OpenAI, or any [OpenAI Compatible Provider](https://a
 
 Built with the [AI SDK](https://ai-sdk.dev/).
 
+💡 If you need help getting started, [support](support.md) is available.
+
+#### Live Demos
+
+Other sites using VitePress Chat with various configurations.
+
+| Site                                                    | Source                                                                                        |   Layout   |   Theme    |
+| :------------------------------------------------------ | :-------------------------------------------------------------------------------------------- | :--------: | :--------: |
+| [Cache Cleaner](https://cssnr.github.io/cache-cleaner/) | [cssnr/cache-cleaner](https://github.com/cssnr/cache-cleaner)                                 |  Default   | **Custom** |
+| [Zipline Android](https://zipline-android.cssnr.com/)   | [cssnr/zipline-android-docs](https://github.com/cssnr/zipline-android-docs)                   | **Custom** |  Default   |
+| [Django Files](https://django-files.github.io/)         | [django-files/django-files.github.io](https://github.com/django-files/django-files.github.io) |  Default   |  Default   |
+| [Portainer Deploy](https://portainer-deploy.cssnr.com/) | [cssnr/portainer-stack-deploy-docs](https://github.com/cssnr/portainer-stack-deploy-docs)     |  Default   | **Custom** |
+
 ## Install
 
 From [npmjs.com](https://www.npmjs.com/package/vitepress-chat) using your favorite package manager...
@@ -72,7 +86,7 @@ npm i -D vitepress-chat
 There are two components, the [Chat Plugin](#chat-plugin) which adds the chat button and box.
 Plus the [Instructions Generator](#instructions-generator) plugin which generates instructions.txt file.
 
-This allows you to use the plugin with other instructions generator plugins or existing `llms.txt` files.
+This allows you to use this with other instructions generator plugins or existing `llms.txt` files.
 
 ### Chat Plugin
 
@@ -92,8 +106,7 @@ import 'vitepress-chat/style.css'
 export default {
   ...DefaultTheme,
   ...chat(DefaultTheme, {
-    api: 'https://chat-server.cssnr.com/',
-    headers: { Authorization: 'Basic Abc123=' },
+    api: 'http://localhost:3000/',
   }),
 }
 ```
@@ -110,12 +123,24 @@ import 'vitepress-chat/style.css'
 export default {
   ...DefaultTheme,
   ...chat(MyLayout, {
-    api: 'https://chat-server.cssnr.com/',
+    api: 'http://localhost:3000/',
   }),
 }
 ```
 
-With a custom file name to use with other generators like [vitepress-plugin-llms](https://github.com/okineadev/vitepress-plugin-llms).
+With an Authorization header and remote server.
+
+```typescript
+export default {
+  ...DefaultTheme,
+  ...chat(DefaultTheme, {
+    api: 'https://chat-server.cssnr.com/',
+    headers: { Authorization: 'Basic Abc123=' },
+  }),
+}
+```
+
+With a custom file name, to use with other generators like [vitepress-plugin-llms](https://github.com/okineadev/vitepress-plugin-llms).
 
 ```typescript
 export default {
@@ -132,11 +157,12 @@ With a remote URL path.
 export default {
   ...chat(DefaultTheme, {
     api: 'https://chat-server.cssnr.com/',
-    filePath: 'https://example.com/custom-instructions.txt',
+    filePath: 'https://cssnr.github.io/vitepress-chat/llms.txt',
   }),
 }
 ```
 
+You can also configure the button text, initial message and much more.  
 See the [ChatOptions](https://github.com/cssnr/vitepress-chat/blob/master/src/index.ts#L6) for more details...
 
 ### Instructions Generator
