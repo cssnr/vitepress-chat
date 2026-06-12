@@ -45,6 +45,8 @@ This adds the `AI Chat` in the bottom right corner of the layout.
 
 Only contains the minimal code to add the chat button, uncompressed ~`6KB`.
 
+Includes all the CSS, uncompressed ~`8KB`.
+
 When clicking on the chat button, it loads the [ChatBox.vue](#chatboxvue).
 
 ### [ChatBox.vue](src/ChatBox.vue)
@@ -56,6 +58,8 @@ The bundle is ~`400KB` download, uncompressed ~`1.2MB`.
 - [AI SDK - useChat](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat)
 
 This load the instructions and communicates with the proxy server.
+
+The instructions are fetched to allow use with any location or file.
 
 The instructions are sent as a body parameter to the proxy server.
 
@@ -75,6 +79,12 @@ export default defineConfig({
   },
 })
 ```
+
+This plugin is optional and only usd to combine all your docs into a single text file.
+
+You can use any existing file or plugin as long as the text can be fetched with a URL.
+
+More details coming soon, see the [source code](src/instructions.ts) for more info...
 
 ## Server
 

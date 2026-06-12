@@ -93,8 +93,7 @@ import 'vitepress-chat/style.css'
 export default {
   ...DefaultTheme,
   ...chat(DefaultTheme, {
-    api: 'https://chat-server.cssnr.com/',
-    headers: { Authorization: 'Basic Abc123=' },
+    api: 'http://localhost:3000/',
   }),
 }
 ```
@@ -111,12 +110,24 @@ import 'vitepress-chat/style.css'
 export default {
   ...DefaultTheme,
   ...chat(MyLayout, {
-    api: 'https://chat-server.cssnr.com/',
+    api: 'http://localhost:3000/',
   }),
 }
 ```
 
-With a custom file name to use with other generators like [vitepress-plugin-llms](https://github.com/okineadev/vitepress-plugin-llms).
+With an Authorization header and remote server.
+
+```typescript
+export default {
+  ...DefaultTheme,
+  ...chat(DefaultTheme, {
+    api: 'https://chat-server.cssnr.com/',
+    headers: { Authorization: 'Basic Abc123=' },
+  }),
+}
+```
+
+With a custom file name, to use with other generators like [vitepress-plugin-llms](https://github.com/okineadev/vitepress-plugin-llms).
 
 ```typescript
 export default {
@@ -138,6 +149,7 @@ export default {
 }
 ```
 
+You can also configure the button text, initial message and much more.  
 See the [ChatOptions](https://github.com/cssnr/vitepress-chat/blob/master/src/index.ts#L6) for more details...
 
 ### Instructions Generator
