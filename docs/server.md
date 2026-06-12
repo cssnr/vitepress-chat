@@ -3,8 +3,10 @@
 <div class="badges">
 
 [![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/chat-server?logo=github)](https://github.com/cssnr/chat-server/releases/latest)
-[![Image Latest](https://badges.cssnr.com/ghcr/tags/cssnr/chat-server/latest)](https://github.com/cssnr/chat-server/pkgs/container/chat-server)
-[![Image Size](https://badges.cssnr.com/ghcr/size/cssnr/chat-server)](https://github.com/cssnr/chat-server/pkgs/container/chat-server)
+[![GHCR Latest](https://badges.cssnr.com/ghcr/tags/cssnr/chat-server/latest?label=ghcr)](https://github.com/cssnr/chat-server/pkgs/container/chat-server)
+[![Docker Hub Latest](https://img.shields.io/docker/v/cssnr/chat-server?sort=semver&logo=docker&logoColor=white&label=hub)](https://hub.docker.com/r/cssnr/chat-server)
+[![GHCR Size](https://badges.cssnr.com/ghcr/size/cssnr/chat-server?label=ghcr)](https://github.com/cssnr/chat-server/pkgs/container/chat-server)
+[![Docker Hub Size](https://img.shields.io/docker/image-size/cssnr/chat-server?logo=docker&logoColor=white&label=hub)](https://hub.docker.com/r/cssnr/chat-server)
 [![Deployment Docker](https://img.shields.io/github/deployments/cssnr/chat-server/docker?logo=docker&logoColor=white&label=docker)](https://github.com/cssnr/chat-server/deployments/docker)
 [![Workflow Release](https://img.shields.io/github/actions/workflow/status/cssnr/chat-server/release.yaml?logo=norton&logoColor=white&label=release)](https://github.com/cssnr/chat-server/actions/workflows/release.yaml)
 [![Workflow Lint](https://img.shields.io/github/actions/workflow/status/cssnr/chat-server/lint.yaml?logo=norton&logoColor=white&label=lint)](https://github.com/cssnr/chat-server/actions/workflows/lint.yaml)
@@ -58,7 +60,7 @@ Built with the [AI SDK](https://ai-sdk.dev/).
 With Docker.
 
 ```shell
-docker run --rm -p 80:3000 ghcr.io/cssnr/chat-server:latest
+docker run --rm cssnr/chat-server:latest
 ```
 
 With Docker Compose.
@@ -66,12 +68,10 @@ With Docker Compose.
 ```yaml
 services:
   chat:
-    image: ghcr.io/cssnr/chat-server:latest
+    image: cssnr/chat-server:latest
     environment:
       MODEL: 'gemini-2.5-flash'
       GOOGLE_GENERATIVE_AI_API_KEY: 'xxx'
-    ports:
-      - '80:3000'
 ```
 
 With Node.
@@ -81,7 +81,7 @@ npm i
 npm start
 ```
 
-_Note: you will need to export or add your environment variables to the `settings.env` file._
+_Note: you will need to export your environment variables or set them in the `settings.env` file._
 
 For a Docker Swarm + Traefik + Basic Auth example see the [docker-compose-swarm.yaml](https://github.com/cssnr/chat-server/blob/master/docker-compose-swarm.yaml).
 

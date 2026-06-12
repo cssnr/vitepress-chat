@@ -40,7 +40,7 @@ jobs:
         with:
           file: "package.json"
 
-      - name: "Debug Package File"
+      - name: "Debug package.json"
         continue-on-error: true
         run: cat package.json
 
@@ -63,12 +63,6 @@ jobs:
           echo "::group::ls dist"
           ls -lAh dist
           echo "::endgroup::"
-
-      - name: "Upload Artifact"
-        uses: actions/upload-artifact@v7
-        with:
-          name: package
-          path: "*.tgz"
 
       - name: "Upload Release"
         uses: cssnr/upload-release-action@v1
