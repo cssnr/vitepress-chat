@@ -62,7 +62,7 @@ Built with the [AI SDK](https://ai-sdk.dev/).
 With Docker.
 
 ```shell
-docker run --rm cssnr/chat-server:latest
+docker run -p 3000:3000 cssnr/chat-server:latest
 ```
 
 With Docker Compose.
@@ -74,6 +74,8 @@ services:
     environment:
       MODEL: 'gemini-2.5-flash'
       GOOGLE_GENERATIVE_AI_API_KEY: 'xxx'
+    ports:
+      - '3000:3000'
 ```
 
 With Node.
