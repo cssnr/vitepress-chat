@@ -2,7 +2,7 @@
 import { computed, ref, watch, nextTick, useTemplateRef, onMounted, onUnmounted } from 'vue'
 import { useData } from 'vitepress'
 import { DefaultChatTransport } from 'ai'
-import { Chat } from '@ai-sdk/vue'
+import { useChat } from '@ai-sdk/vue'
 import { marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import hljs from 'highlight.js'
@@ -36,7 +36,6 @@ const initialMessageText = computed(
 
 const instructions = ref(system)
 const input = ref('')
-const error = ref('')
 const messagesEl = useTemplateRef('messagesEl')
 const anchorEl = useTemplateRef('anchorEl')
 const inputEl = useTemplateRef('inputEl')
@@ -91,7 +90,7 @@ marked.use(
   }),
 )
 
-const chat = new Chat({
+const { messages, status, error, sendMessage, clearError } = useChat({
   transport: new DefaultChatTransport({
     api: props.api,
     ...(props.headers ? { headers: props.headers } : {}),
@@ -103,17 +102,16 @@ const chat = new Chat({
   },
   onError: (e) => {
     console.error(e)
-    error.value = e.message
   },
 })
 
-const chatBusy = computed(() => chat.status !== 'ready' && chat.status !== 'error')
+const chatBusy = computed(() => status.value !== 'ready' && status.value !== 'error')
 
 const showTyping = computed(() => {
-  return chat.status === 'submitted'
-  // if (chat.status === 'submitted') return true
-  // if (chat.status === 'streaming') {
-  //   const lastMsg = chat.messages.at(-1)
+  return status.value === 'submitted'
+  // if (status === 'submitted') return true
+  // if (status === 'streaming') {
+  //   const lastMsg = messages.value.at(-1)
   //   if (!lastMsg || lastMsg.role !== 'assistant') return true
   //   return !lastMsg.parts?.some((p) => p.type === 'text')
   // }
@@ -121,8 +119,8 @@ const showTyping = computed(() => {
 })
 
 const streamingMessageId = computed(() => {
-  if (chat.status === 'streaming') {
-    return chat.messages.at(-1)?.role === 'assistant' ? chat.messages.at(-1)!.id : null
+  if (status.value === 'streaming') {
+    return messages.value.at(-1)?.role === 'assistant' ? messages.value.at(-1)!.id : null
   }
   return null
 })
@@ -186,8 +184,8 @@ function handleSubmit(e: Event) {
   const text = input.value.trim()
   if (!text) return
   scrollToBottom()
-  error.value = ''
-  chat.sendMessage({ text })
+  clearError()
+  sendMessage({ text })
   input.value = ''
   focusInput()
 }
@@ -201,7 +199,7 @@ function handleSubmit(e: Event) {
     </div>
 
     <div
-      v-for="message in chat.messages"
+      v-for="message in messages"
       :key="message.id"
       class="message"
       :class="message.role === 'user' ? 'message--user' : 'message--ai'"
@@ -228,7 +226,7 @@ function handleSubmit(e: Event) {
 
   <hr class="chat-divider" />
 
-  <div v-if="error" class="chat-error">{{ error }}</div>
+  <div v-if="error" class="chat-error">{{ error.message }}</div>
 
   <form class="chat-form" @submit="handleSubmit">
     <textarea

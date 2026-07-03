@@ -2,6 +2,9 @@
 
 ## Chat
 
+- Improve reasoning view's
+- Improve typing indicator (spinning wheel)
+- Add Mermaid diagram rendering
 - Add training on formatting anchor links in system prompt
 - Add Chat Option for custom system prompt
 - Add scroll-to-bottom button on chat
