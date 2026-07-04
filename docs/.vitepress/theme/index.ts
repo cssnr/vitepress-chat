@@ -2,8 +2,9 @@ import DefaultTheme, { VPBadge } from 'vitepress/theme'
 import type { Theme } from 'vitepress'
 import './custom.css'
 
-// import MyLayout from './MyLayout.vue'
 import chat from '../../../src/index.ts'
+// import MyLayout from './MyLayout.vue'
+import ChatFooter from './components/ChatFooter.vue'
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -22,6 +23,8 @@ export default {
     // headerUrl: null,
     // headerText: null,
     // initialMessage: "Hello, I'm an AI Assistant trained on the VitePress Chat.\n\nHow can I help you [get started](client)?",
+    // chatHeader: ChatFooter,
+    chatFooter: ChatFooter,
   }),
 
   enhanceApp({ app }) {
