@@ -198,6 +198,33 @@ export default defineConfig({
 
 See the [InstructionsOptions](https://github.com/cssnr/vitepress-chat/blob/master/src/instructions.ts#L8) for more details...
 
+## Customize
+
+You can use a custom component for the Header or Footer.
+
+```typescript
+import ChatHeader from './components/ChatHeader.vue'
+import ChatFooter from './components/ChatFooter.vue'
+
+export default {
+  ...chat(DefaultTheme, {
+    api: 'https://chat-server.cssnr.com/',
+    chatHeader: ChatHeader,
+    chatFooter: ChatFooter,
+  }),
+}
+```
+
+The custom `chatHeader` will override the current header text/link.
+
+The custom `chatFooter` is only displayed when added.
+
+:::details Click here to view this site's [./components/ChatFooter.vue](https://github.com/cssnr/vitepress-chat/blob/master/docs/.vitepress/theme/components/ChatFooter.vue)
+
+<<< @/.vitepress/theme/components/ChatFooter.vue
+
+:::
+
 &nbsp;
 
 If you don't have one setup yet, configure your [Server](server.md).

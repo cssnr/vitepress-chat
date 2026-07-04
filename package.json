@@ -58,11 +58,11 @@
     "tsc": "npx tsc --noEmit"
   },
   "devDependencies": {
-    "@ai-sdk/vue": "^4.0.14",
+    "@ai-sdk/vue": "^4.0.15",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.1.0",
     "@vitejs/plugin-vue": "^6.0.7",
-    "ai": "^7.0.14",
+    "ai": "^7.0.15",
     "eslint": "^10.6.0",
     "eslint-plugin-vue": "^10.9.2",
     "globals": "^17.7.0",

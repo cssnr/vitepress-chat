@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue'
+import { ref, shallowRef, provide } from 'vue'
 import { useScrollLock, useEventListener, onKeyStroke } from '@vueuse/core'
 import { Zap, X } from 'lucide-vue-next'
 import type { ChatOptions } from './index'
@@ -9,6 +9,8 @@ withDefaults(defineProps<ChatOptions>(), {
   headerText: 'VitePress Chat',
   headerUrl: 'https://github.com/cssnr/vitepress-chat',
 })
+
+provide('closeChat', closeChat)
 
 const isOpen = ref(false)
 const isLoading = ref(false)
@@ -59,8 +61,9 @@ useEventListener('popstate', () => {
         <div class="backdrop" @click="closeChat" />
         <div class="shell">
           <div class="chat-header">
+            <component v-if="chatHeader" :is="chatHeader" :close-chat="closeChat" />
             <component
-              v-if="headerText"
+              v-else-if="headerText"
               :is="headerUrl ? 'a' : 'span'"
               class="chat-header-title"
               :href="headerUrl ?? undefined"
@@ -79,8 +82,8 @@ useEventListener('popstate', () => {
             <span>Loading Chat…</span>
           </div>
           <div v-else-if="loadError" class="chat-error">Failed to load chat. Please try again.</div>
-
           <component v-else-if="ChatBox" :is="ChatBox" v-bind="$props" :is-open="isOpen" @close="closeChat" />
+          <component :is="chatFooter" :close-chat="closeChat" />
         </div>
       </div>
     </Transition>
