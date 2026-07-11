@@ -7,11 +7,14 @@ import { marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css'
-import { Send } from 'lucide-vue-next'
+import { Send, Square } from 'lucide-vue-next'
 import type { ChatOptions } from './index'
 
 const props = withDefaults(defineProps<ChatOptions & { isOpen: boolean }>(), {
   filePath: 'instructions.txt',
+  placeholder: 'Enter your question (use Ctrl/Shift+Enter for new lines)…',
+  aiName: 'AI',
+  userName: 'YOU',
 })
 
 const emit = defineEmits<{ close: [] }>()
@@ -90,7 +93,7 @@ marked.use(
   }),
 )
 
-const { messages, status, error, sendMessage, clearError } = useChat({
+const { messages, status, error, sendMessage, clearError, stop } = useChat({
   transport: new DefaultChatTransport({
     api: props.api,
     ...(props.headers ? { headers: props.headers } : {}),
@@ -194,7 +197,7 @@ function handleSubmit(e: Event) {
 <template>
   <div ref="messagesEl" class="chat-messages" @scroll="onScroll">
     <div v-if="initialMessageText" class="message message--ai">
-      <span class="message-label">AI</span>
+      <span v-if="props.aiName" class="message-label">{{ props.aiName }}</span>
       <div class="message-bubble" v-html="renderMarkdown(initialMessageText)" @click="onBubbleClick" />
     </div>
 
@@ -204,7 +207,9 @@ function handleSubmit(e: Event) {
       class="message"
       :class="message.role === 'user' ? 'message--user' : 'message--ai'"
     >
-      <span class="message-label">{{ message.role === 'user' ? 'You' : 'AI' }}</span>
+      <span v-if="message.role === 'user' ? props.userName : props.aiName" class="message-label">{{
+        message.role === 'user' ? props.userName : props.aiName
+      }}</span>
       <div class="message-bubble" @click="onBubbleClick">
         <template v-for="(part, i) in message.parts" :key="i">
           <span v-if="part.type === 'text'" v-html="renderMarkdown(part.text)" />
@@ -234,11 +239,14 @@ function handleSubmit(e: Event) {
       v-model="input"
       class="chat-input"
       :disabled="chatBusy"
-      placeholder="Enter your question (use Ctrl/Shift+Enter for new lines)…"
+      :placeholder="props.placeholder ?? undefined"
       autocomplete="off"
       @keydown="onTextareaKeydown"
     />
-    <button type="submit" class="chat-send" :disabled="chatBusy || !input.trim()" title="Send">
+    <button v-if="chatBusy" type="button" class="chat-send chat-stop" title="Stop generating" @click="stop">
+      <Square />
+    </button>
+    <button v-else type="submit" class="chat-send" :disabled="!input.trim()" title="Send">
       <Send />
     </button>
   </form>
@@ -289,7 +297,6 @@ function handleSubmit(e: Event) {
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
   color: var(--vp-c-text-3);
   padding: 0 4px;
 }
@@ -422,15 +429,15 @@ function handleSubmit(e: Event) {
 
 .chat-form {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* flex-start center flex-end */
   flex-shrink: 0;
-  position: relative;
+  gap: 6px;
 }
 
 .chat-input {
   flex: 1;
   min-width: 0;
-  padding: 8px 44px 8px 8px;
+  padding: 8px;
   border-radius: 8px;
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg-soft);
@@ -458,9 +465,7 @@ function handleSubmit(e: Event) {
 }
 
 .chat-send {
-  position: absolute;
-  top: 6px;
-  right: 6px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -488,5 +493,13 @@ function handleSubmit(e: Event) {
 .chat-send:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.chat-stop {
+  background: var(--vp-c-danger-2);
+}
+
+.chat-send.chat-stop:hover {
+  background: var(--vp-c-danger-1);
 }
 </style>

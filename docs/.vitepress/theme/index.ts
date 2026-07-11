@@ -19,6 +19,8 @@ export default {
       : undefined,
     filePath: 'llms.txt',
     showReasoning: true,
+    // aiName: null,
+    // userName: null,
     // buttonText: '',
     // headerUrl: null,
     // headerText: null,
