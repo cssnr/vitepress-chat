@@ -3,6 +3,7 @@ defineProps<{ closeChat: () => void }>()
 </script>
 
 <template>
+  <hr class="chat-divider" />
   <div class="vp-doc chat-footer">
     <span class="chat-footer-text">
       View the
@@ -18,6 +19,12 @@ defineProps<{ closeChat: () => void }>()
 </template>
 
 <style scoped>
+.chat-divider {
+  flex-shrink: 0;
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+}
 .chat-footer {
   display: flex;
   justify-content: space-between;

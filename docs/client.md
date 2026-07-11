@@ -163,7 +163,7 @@ export default {
 ```
 
 You can also configure the button text, initial message and much more.  
-See the [ChatOptions](https://github.com/cssnr/vitepress-chat/blob/master/src/index.ts#L6) for more details...
+See the [ChatOptions](#chatoptions) for more details...
 
 ### Instructions Generator
 
@@ -199,6 +199,32 @@ export default defineConfig({
 See the [InstructionsOptions](https://github.com/cssnr/vitepress-chat/blob/master/src/instructions.ts#L8) for more details...
 
 ## Customize
+
+### ChatOptions
+
+All options passed to the `chat()` function. Only `api` is required.
+
+| Option           | Type                     | Default                                                       | Description                                                             |
+| :--------------- | :----------------------- | :------------------------------------------------------------ | :---------------------------------------------------------------------- |
+| `api`            | `string`                 | **Required**                                                  | URL of the [chat server](server.md) to connect to.                      |
+| `headers`        | `Record<string, string>` | —                                                             | Custom HTTP headers sent with every request to the API.                 |
+| `buttonText`     | `string`                 | `'AI Chat'`                                                   | Text displayed on the floating chat button.                             |
+| `headerText`     | `string \| null`         | `'VitePress Chat'`                                            | Text displayed in the chat window header.                               |
+| `headerUrl`      | `string \| null`         | `'https://github.com/cssnr/vitepress-chat'`                   | URL the header text links to.                                           |
+| `initialMessage` | `string \| null`         | —                                                             | Message automatically sent to the AI when the chat opens.               |
+| `aiName`         | `string \| null`         | `'AI'`                                                        | Label displayed above AI messages.                                      |
+| `userName`       | `string \| null`         | `'YOU'`                                                       | Label displayed above user messages.                                    |
+| `placeholder`    | `string \| null`         | `'Enter your question (use Ctrl/Shift+Enter for new lines)…'` | Placeholder text shown in the message input field.                      |
+| `filePath`       | `string`                 | `'instructions.txt'`                                          | Path (or full URL) to the instructions file the server uses as context. |
+| `showReasoning`  | `boolean`                | `false`                                                       | Show the AI's internal reasoning/thinking steps in the chat.            |
+| `chatHeader`     | `Component`              | —                                                             | Vue component to replace the default header entirely.                   |
+| `chatFooter`     | `Component`              | —                                                             | Vue component rendered below the message list.                          |
+
+Options that optionally accept `null` will completely disable that item when passed.
+
+The full type definition is in [`src/index.ts`](https://github.com/cssnr/vitepress-chat/blob/master/src/index.ts#L6).
+
+### Components
 
 You can use a custom component for the Header or Footer.
 

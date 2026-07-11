@@ -10,6 +10,9 @@ export interface ChatOptions {
   headerText?: string | null
   headerUrl?: string | null
   initialMessage?: string | null
+  aiName?: string | null
+  userName?: string | null
+  placeholder?: string | null
   filePath?: string
   showReasoning?: boolean
   chatHeader?: Component
