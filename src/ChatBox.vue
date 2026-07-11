@@ -243,7 +243,7 @@ function handleSubmit(e: Event) {
       autocomplete="off"
       @keydown="onTextareaKeydown"
     />
-    <button v-if="chatBusy" type="button" class="chat-send chat-stop" title="Stop generating" @click="stop">
+    <button v-if="chatBusy" type="button" class="chat-send chat-stop" title="Stop" @click="stop">
       <Square />
     </button>
     <button v-else type="submit" class="chat-send" :disabled="!input.trim()" title="Send">
