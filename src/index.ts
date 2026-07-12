@@ -15,6 +15,9 @@ export interface ChatOptions {
   placeholder?: string | null
   filePath?: string
   showReasoning?: boolean
+  loadingText?: string
+  errorText?: string
+  viewReasoningText?: string
   chatHeader?: Component
   chatFooter?: Component
 }

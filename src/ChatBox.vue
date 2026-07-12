@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<ChatOptions & { isOpen: boolean }>(), {
   placeholder: 'Enter your question (use Ctrl/Shift+Enter for new lines)…',
   aiName: 'AI',
   userName: 'YOU',
+  viewReasoningText: 'View Reasoning…',
 })
 
 const emit = defineEmits<{ close: [] }>()
@@ -214,7 +215,7 @@ function handleSubmit(e: Event) {
         <template v-for="(part, i) in message.parts" :key="i">
           <span v-if="part.type === 'text'" v-html="renderMarkdown(part.text)" />
           <details v-if="part.type === 'reasoning' && props.showReasoning" class="reasoning-details">
-            <summary class="reasoning-summary">View Reasoning…</summary>
+            <summary class="reasoning-summary">{{ viewReasoningText }}</summary>
             <span class="reasoning-text">{{ part.text }}</span>
           </details>
         </template>
