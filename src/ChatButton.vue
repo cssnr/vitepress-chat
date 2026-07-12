@@ -8,6 +8,8 @@ withDefaults(defineProps<ChatOptions>(), {
   buttonText: 'AI Chat',
   headerText: 'VitePress Chat',
   headerUrl: 'https://github.com/cssnr/vitepress-chat',
+  loadingText: 'Loading Chat…',
+  loadErrorText: 'Failed to load chat. Please try again.',
 })
 
 provide('closeChat', closeChat)
@@ -79,9 +81,9 @@ useEventListener('popstate', () => {
 
           <div v-if="isLoading" class="chat-loading">
             <div class="spinner" />
-            <span>Loading Chat…</span>
+            <span>{{ loadingText }}</span>
           </div>
-          <div v-else-if="loadError" class="chat-error">Failed to load chat. Please try again.</div>
+          <div v-else-if="loadError" class="chat-error">{{ loadErrorText }}</div>
           <component v-else-if="ChatBox" :is="ChatBox" v-bind="$props" :is-open="isOpen" @close="closeChat" />
           <component :is="chatFooter" :close-chat="closeChat" />
         </div>
