@@ -16,7 +16,7 @@ export interface ChatOptions {
   filePath?: string
   showReasoning?: boolean
   loadingText?: string
-  errorText?: string
+  loadErrorText?: string
   viewReasoningText?: string
   chatHeader?: Component
   chatFooter?: Component

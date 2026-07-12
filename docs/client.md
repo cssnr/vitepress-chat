@@ -218,7 +218,7 @@ All options passed to the `chat()` function. Only `api` is required.
 | `filePath`          | `string`                 | `'instructions.txt'`                                          | Path (or full URL) to the instructions file the server uses as context. |
 | `showReasoning`     | `boolean`                | `false`                                                       | Show the AI's internal reasoning/thinking steps in the chat.            |
 | `loadingText`       | `string`                 | `'Loading Chat…'`                                             | Text displayed while the chat is loading.                               |
-| `errorText`         | `string`                 | `'Failed to load chat. Please try again.'`                    | Text displayed when the chat fails to load.                             |
+| `loadErrorText `    | `string`                 | `'Failed to load chat. Please try again.'`                    | Text displayed when the chat fails to load.                             |
 | `viewReasoningText` | `string`                 | `'View Reasoning…'`                                           | Text for the reasoning expand/collapse toggle.                          |
 | `chatHeader`        | `Component`              | —                                                             | Vue component to replace the default header entirely.                   |
 | `chatFooter`        | `Component`              | —                                                             | Vue component rendered below the message list.                          |
