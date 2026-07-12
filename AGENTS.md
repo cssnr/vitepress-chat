@@ -26,19 +26,33 @@ For an in-depth guide see [TODO.md](TODO.md).
 
 ### vitepress-chat
 
-- Main Plugin — `src/index.ts`
+Chat VitePress Plugin.
+
+- Entrypoint — `src/index.ts`
 - Wraps VitePress `DefaultTheme`
 - Defined in `docs/.vitepress/theme/index.ts`
 - Accepts `ChatOptions` options
 
 ### vitepress-chat/instructions
 
-- Vite plugin `src/instructions.ts`
+Instructions Generator Vite Plugin.
+
+- Entrypoint `src/instructions.ts`
 - Defined in `docs/.vitepress/config.mts`
 - Generates `instructions.txt`
 - Accepts `InstructionsOptions`
 
 ### vitepress-chat/style.css
 
-- Built CSS for the chat
+CSS Generated from Vite Build.
+
 - Defined in `docs/.vitepress/theme/index.ts`
+
+## Output
+
+Build outputs to: `dist/`
+
+- `chat.es.js` — Main chat entry
+- `instructions.es.js` — Instructions plugin entry
+- `vitepress-chat.css` — Extracted CSS
+- `index.d.ts` — Type declarations
