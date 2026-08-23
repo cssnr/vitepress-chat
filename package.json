@@ -58,12 +58,12 @@
     "tsc": "npx tsc --noEmit"
   },
   "devDependencies": {
-    "@ai-sdk/vue": "^4.0.73",
+    "@ai-sdk/vue": "^4.0.77",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.2.0",
     "@vitejs/plugin-vue": "^6.0.8",
-    "ai": "^7.0.73",
-    "eslint": "^10.8.1",
+    "ai": "^7.0.77",
+    "eslint": "^10.9.0",
     "eslint-plugin-vue": "^10.10.0",
     "globals": "^17.11.0",
     "highlight.js": "^11.12.0",
@@ -76,7 +76,7 @@
     "vite": "^8.2.2",
     "vitepress": "next",
     "vue": "^3.5.41",
-    "vue-tsc": "^3.3.10"
+    "vue-tsc": "^3.3.11"
   },
   "peerDependencies": {
     "@ai-sdk/vue": ">=3.0.0",
